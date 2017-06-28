@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Psychic Game!</title>
+</head>
+<body>
+
+  <h1>The Psychic Game</h1>
+  <hr>
+  <p id="wins"></p>
+  <p id="losses"></p>
+  <p id="guessLeft"></p>
+  <p id="guess"> </p>
+
+  <!-- Added link to the jQuery Library -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <script type="text/javascript">
+
+    // Letter to be guessed
+    var letter = randomLetter();
+    var lettersGuessed = "";
+
+    // initialize the tracking variables 
+    var wins = 0, losses = 0, guessLeft = 9;
+    $("#wins").html("Wins = " + wins); 
+    $("#losses").html("Losses = " + losses); 
+    $("#guessLeft").html("Guesses Left = " + guessLeft); 
+    $("#guess").html("Letters Guessed: ");
+    
+    
+    
+  document.onkeyup = function(event)
+  {  
+    var userGuess = event.key;
+    if (userGuess === letter)
+    {
+      lettersGuessed = "";
+      $("#guess").html("Letters Guessed: ");
+      wins++;
+      $("#wins").html("Wins = " + wins); 
+      letter = randomLetter();
+    } 
+
+    if (userGuess !== letter)
+    {
+      if (guessLeft === 0)
+      {
+        losses++;
+        guessLeft = 9;
+        $("#guess").html("Letters Guessed: "); 
+        $("#losses").html("Losses = " + losses); 
+        $("#guessLeft").html("Guesses Left = " + guessLeft); 
+           
+      }  
+      else
+      {
+        guessLeft--;
+        $("#guess").append(userGuess + " ");
+      }
+    }
+  }
+
+    // ...
+    function randomLetter()
+    {
+      var text = "";
+      var possible = "abcdefghijklmnopqrstuvwxyz";
+
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+      return text;
+    }
+
+  </script>
+
+</body>
+</html>
